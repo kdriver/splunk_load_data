@@ -1,0 +1,19 @@
+{ "location" : { "lat": 42.36 , "lon": -83.09 }, "name" : "Detroit"  , "device" : { "hostname" : "5500-EI"},"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 36.16 , "lon": -86.77 }, "name" : "Nashville"  , "device" : { "hostname" : "Quidway"},"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 33.45 , "lon": -112.10}, "name" : "Phoenix"  , "device" : { "hostname" : "TDemo_Juniper_SA"},"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 40.71 , "lon": -74.00 }, "name" : "New York"  , "device" : { "hostname" : "CiscoIOS15"},"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 41.78 , "lon": -87.62 }, "name" : "Chicago"  , "device" : {"hostname" : "TitaniaNexus5010"},"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 37.77 , "lon": -122.41 }, "name" : "Seattle" , "device" : { "hostname" : "router03" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 29.45 , "lon": -98.45  }, "name" : "JBSA" , "device" : { "hostname" : "Office-Cisco-Catalyst" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 42.49 , "lon": -71.27  }, "name" : "Hanscom" , "device" : { "hostname" : "Office-Cisco-ASA" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 39.73 , "lon": -104.99  }, "name" : "Denver" , "device" : { "hostname" : "TDemo_Check_IP60w" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 25.76 , "lon": -80.19  }, "name" : "Miami" , "device" : { "hostname" : "TDemo_Check_VPN" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 47.60 , "lon": -122.33  }, "name" : "Seattle" , "device" : { "hostname" : "Office-Juniper-SRX" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 34.76 , "lon": -92.28  }, "name" : "Little Rock" , "device" : { "hostname" : "Eudemon200E-N" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 47.75 , "lon": -120.74  }, "name" : "Washington" , "device" : { "hostname" : "ProCurve Switch 2610-24/12PWR" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 38.90 , "lon": -77.03  }, "name" : "Washington DC" , "device" : { "hostname" : "TDemo_Brocade_ICX" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 39.09 , "lon": -94.72  }, "name" : "Kansas" , "device" : { "hostname" : "OfficeFoundryServerIron" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 39.97 , "lon": -82.99  }, "name" : "Columbus" , "device" : { "hostname" : "PA-200" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 32.77 , "lon": -96.80  }, "name" : "Dallas" , "device" : { "hostname" : "PA-200-vsys1" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 30.36 , "lon": -81.64  }, "name" : "Jacksonville" , "device" : { "hostname" : "XTM_5_Series" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 31.75 , "lon": -106.50}, "name" : "El Paso" , "device" : { "hostname" : "TDemo_Check_Gaia" },"date_time": "Mon Jan 27 13:52:29 2020"}
