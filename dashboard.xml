@@ -1,0 +1,259 @@
+<form>
+  <label>Nipper Dashboard</label>
+  <description>Nipper Dashboard</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Audit Sessions</title>
+      <table>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" |  stats count by  nipper_session,nipper_text</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Audit type and status</title>
+      <table>
+        <title>Audit type</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json"  | stats count by audit_type,message_type | sort count | reverse</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Device locations for findings</title>
+      <map>
+        <title>location for findings</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" |geostats count  latfield=location.lat longfield=location.lon</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="mapping.type">marker</option>
+      </map>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>STIG CAT I Fails</title>
+      <single>
+        <title>STIG CAT I Fails</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" audit_type="STIG Compliance" message_type="Compliance Test Fail" severity="CAT I" | stats  count</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+    <panel>
+      <title>STIG Category</title>
+      <chart>
+        <title>STIG category</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" audit_type="STIG Compliance" message_type="Compliance Test Fail" | stats count(severity) as counter by severity</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>STIG test status</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json"   audit_type="STIG Compliance" | chart count by message_type</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Findings</title>
+      <table>
+        <title>Findings list</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json"  | stats count(finding_id) as counter by finding_id | sort counter | reverse</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Findings</title>
+      <chart>
+        <title>Findings histogram</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" finding_id="*" | top finding_id</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Vulnerability Impact</title>
+      <chart>
+        <title>Impact</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" | stats count(impact.rating) as counter by impact.rating | sort counter | reverse</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Manufacturer</title>
+      <table>
+        <title>Manufacturer</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" | stats count(device.manufacturer) as counter by device.manufacturer | sort counter | reverse</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Hostnames</title>
+      <table>
+        <title>Hostnames</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" | stats count(device.hostname) as counter by device.hostname | sort counter | reverse</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>Operating system version</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" | stats count(device.operating_system.version) as counter by device.manufacturer,device.operating_system.version | sort counter | reverse</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Security Audit</title>
+      <table>
+        <title>Security Audit</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" audit_type="Security Audit" | table finding_id,title,impact.rating,impact.description</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>STIG Checks</title>
+      <table>
+        <title>STIG Compliance</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" audit_type="STIG Compliance" | table finding_id,title,severity,check,description,fix</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Vulnerability Detail</title>
+      <table>
+        <title>Vulnerability Detail</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" audit_type="Vulnerability Audit" | table finding_id,message_level,"rating.CVSSv2 Overall","rating.CVSSv2 Score",summary</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>CIS Benchmarks</title>
+      <table>
+        <title>CIS Benchmarkss</title>
+        <search>
+          <query>source="/home/splunk/data/*" host="nocsoc" index="nipper" sourcetype="_json" audit_type="CISBenchmark" | table id,message_level,title</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+</form>
