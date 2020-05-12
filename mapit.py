@@ -3,7 +3,6 @@ import argparse
 from datetime import datetime
 from datetime import timedelta
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument("-f","--file",default="log1.json")
 parser.add_argument("-p","--prefix",default="./events/")
@@ -26,7 +25,7 @@ with open(json_file) as fn:
         filetype = NORMAL
     fn.close()
 #
-#  Read in the JSON from Nipper.  The JSON has already been through map.py to fix some issues
+#  Read in the JSON from Nipper.  
 #
 print("open {} ".format(json_file))
 js=[]
@@ -49,8 +48,6 @@ def delete_it(filename):
     if os.path.exists(filename):    
         os.remove(filename)
 
-#delete all files this script generates before we regenerate them
-
 def read_geodata(geod):
         with open('geodata.json',"r") as geo:
                 for line in geo:
@@ -61,20 +58,35 @@ def read_geodata(geod):
 
 geo_data = {}
 read_geodata(geo_data)
-print(json.dumps(geo_data,indent=4))
-
+print("read {} geodata device locations".format(len(geo_data)))
 
 prefix  = "./events/"
 if cla.file is not None:
     prefix = cla.prefix
 
-outfile = os.path.splitext(json_file)[0] + "_out.json"
+head, tail =  os.path.split(json_file)
+
+name, ext = os.path.splitext(tail)
+
+outfile = name + "_out.json"
+formatted_outfile = name + "_out_formatted.json"
+
+print("full aggregated output file will be written to {}".format(outfile))
+print("one repetition output  file will be written to {}".format(formatted_outfile))
 
 delete_it(outfile)
+delete_it(formatted_outfile)
+repetition = cla.repeat
 
-def write_individual_files(events,seq):
-  with open(outfile,"a") as wf:
+def write_individual_files(events,seq,skip_finding,rep):
+  outfile = name + "_" + str(rep) + "_out.json"
+  delete_it(outfile)
+  with open(outfile,"w") as wf:
     for f in events:
+        if 'finding_id' in f:
+            if f['finding_id'] == skip_finding:
+                print("skip finding {}".format(skip_finding))
+                continue
         obj = json.dumps(f)
         wf.write("{}\n".format(obj))
         seq = seq + 1
@@ -96,7 +108,7 @@ nipper_id=1
 #for every report in the original add the UUID and some text
 for report in js:
         report['nipper_session'] = session_uuid
-        report['nipper_text'] = "Research Network first audit"
+        report['nipper_text'] = "Research Network last audit"
         report['date_time'] = t1.strftime("%a %b %d %H:%M:%S %Y")
         report['epoch'] = seconds
         report['nipper_id'] = nipper_id
@@ -117,23 +129,27 @@ for report in js:
                 pass
 
 #write out formatted json for ease of use
-with open(outfile+'.formatted',"w") as wf:
+with open(formatted_outfile,"w") as wf:
     wf.write(json.dumps(js,indent=4))
 
-seq=write_individual_files(js,seq)
+seq=write_individual_files(js,seq,"dont skip",repetition)
+
+skip="V-3175"
 
 if cla.repeat != 0:
+        print("skip finding {} for repeated instances".format(skip))
         for day in range(1,cla.repeat):
                 t1 = datetime.now() - timedelta(days=day)
                 t1_str = t1.strftime("%a %b %d %H:%M:%S %Y")
                 session_uuid = str(uuid.uuid4())
                 print(session_uuid)
-                #for every report in the original add  a different UUID and text. This simulates a second audit
+                # For every report in the original add  a different UUID and text. This simulates a second audit
+                # We also skip one finding id to illustrate differences between audits.
                 seconds = seconds - (60*60*24)
                 for report in js:
                         report['nipper_text'] = "Research Network audit"
                         report['nipper_session'] = session_uuid
                         report['date_time'] = t1_str
                         report['epoch'] = seconds
-                seq = write_individual_files(js,seq)
-
+                repetition = repetition - 1
+                seq = write_individual_files(js,seq,skip,repetition)
