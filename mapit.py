@@ -54,7 +54,7 @@ def read_geodata(geod):
                         jo = json.loads(line)
                         hn = jo['device']['hostname']
                         loc = jo['location']
-                        geod[hn] = loc
+                        geod[hn] = [loc,jo['name']]
 
 geo_data = {}
 read_geodata(geo_data)
@@ -115,8 +115,10 @@ for report in js:
         nipper_id = nipper_id + 1
         try:
                 hn = report['device']['hostname']
-                locn = geo_data[hn]
+                locn = geo_data[hn][0]
+                city= geo_data[hn][1]
                 report['location'] = locn
+                report['city'] = city
                 report['device'].pop('not_operating_system',None)
         except Exception as e: 
                pass 

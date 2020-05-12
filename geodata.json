@@ -3,7 +3,7 @@
 { "location" : { "lat": 33.45 , "lon": -112.10}, "name" : "Phoenix"  , "device" : { "hostname" : "TDemo_Juniper_SA"},"date_time": "Mon Jan 27 13:52:29 2020"}
 { "location" : { "lat": 40.71 , "lon": -74.00 }, "name" : "New York"  , "device" : { "hostname" : "CiscoIOS15"},"date_time": "Mon Jan 27 13:52:29 2020"}
 { "location" : { "lat": 41.78 , "lon": -87.62 }, "name" : "Chicago"  , "device" : {"hostname" : "TitaniaNexus5010"},"date_time": "Mon Jan 27 13:52:29 2020"}
-{ "location" : { "lat": 37.77 , "lon": -122.41 }, "name" : "Seattle" , "device" : { "hostname" : "router03" },"date_time": "Mon Jan 27 13:52:29 2020"}
+{ "location" : { "lat": 37.77 , "lon": -122.41 }, "name" : "San Franciso" , "device" : { "hostname" : "router03" },"date_time": "Mon Jan 27 13:52:29 2020"}
 { "location" : { "lat": 29.45 , "lon": -98.45  }, "name" : "JBSA" , "device" : { "hostname" : "Office-Cisco-Catalyst" },"date_time": "Mon Jan 27 13:52:29 2020"}
 { "location" : { "lat": 42.49 , "lon": -71.27  }, "name" : "Hanscom" , "device" : { "hostname" : "Office-Cisco-ASA" },"date_time": "Mon Jan 27 13:52:29 2020"}
 { "location" : { "lat": 39.73 , "lon": -104.99  }, "name" : "Denver" , "device" : { "hostname" : "TDemo_Check_IP60w" },"date_time": "Mon Jan 27 13:52:29 2020"}
